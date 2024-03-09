@@ -49,16 +49,20 @@
             const listItem = document.createElement('li');
             listItem.innerHTML = `
                 <div class="button-container">
-                    <input type="checkbox"/>
                     <span>${task}</span>
-                   
-                    <button class="editBtn">Edit</button>
-                    <button class="deleteBtn">Delete</button>
-                  
-                </div>`;
+                </div >
+                    <div class='boxBtn'>
+                        <button class="editBtn">Edit</button>
+                        <button class="deleteBtn">Delete</button>
+                     </div>`;
             taskList.appendChild(listItem);
             saveTasks();
+
+            listItem.addEventListener('click', function () {
+                classList.toogle('done')
+            })
         }
+
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
@@ -72,18 +76,6 @@
             }
         });
 
-        taskList.addEventListener('change', (event) => {
-            if (event.target.type === 'checkbox') {
-                const span = event.target.nextElementSibling;
-                if (event.target.checked) {
-                    span.style.textDecoration = 'line-through';
-                } else {
-                    span.style.textDecoration = 'none';
-                }
-                saveTasks();
-            }
-        });
-
         taskList.addEventListener('click', (event) => {
             const target = event.target;
             if (target.classList.contains('deleteBtn')) {
@@ -94,17 +86,17 @@
                 const listItem = target.parentElement.parentElement;
                 const span = listItem.querySelector('span');
                 span.contentEditable = true;
-                span.focus( );
+                span.focus();
             }
         });
 
-        taskList.addEventListener('blur', (event) => {
-            const target = event.target;
-            if (target.tagName === ' SPAN ') {
-                target.removeAttribute('contenteditable');
-                saveTasks();
-            }
-        });
+        // taskList.addEventListener('blur', (event) => {
+        //     const target = event.target;
+        //     if (target.tagName === ' SPAN ') {
+        //         target.removeAttribute('contenteditable');
+        //         saveTasks();
+        //     }
+        // });
 
         // Wczytanie zapisanych zadań po załadowaniu strony
         document.addEventListener('DOMContentLoaded', loadTasks);
