@@ -26,10 +26,38 @@
         const form = document.querySelector('form');
         const taskList = document.querySelector('#task-list');
 
+        // Funkcja zapisująca zadania w localStorage
+        function saveTasks() {
+            const tasks = [];
+            document.querySelectorAll('#task-list li span').forEach(span => {
+                tasks.push(span.innerText);
+            });
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        // Funkcja wczytująca zadania z localStorage
+        function loadTasks() {
+            const tasks = JSON.parse(localStorage.getItem('tasks'));
+            if (tasks) {
+                tasks.forEach(task => {
+                    addTask(task);
+                });
+            }
+        }
+
         function addTask(task) {
             const listItem = document.createElement('li');
-            listItem.innerHTML = `<input type="checkbox"/> <span>${task}</span><button class="editBtn">Edit</button><button class="deleteBtn">Delete</button>`;
+            listItem.innerHTML = `
+                <div class="button-container">
+                    <input type="checkbox"/>
+                    <span>${task}</span>
+                   
+                    <button class="editBtn">Edit</button>
+                    <button class="deleteBtn">Delete</button>
+                  
+                </div>`;
             taskList.appendChild(listItem);
+            saveTasks();
         }
 
         form.addEventListener('submit', (event) => {
@@ -52,28 +80,34 @@
                 } else {
                     span.style.textDecoration = 'none';
                 }
+                saveTasks();
             }
         });
 
         taskList.addEventListener('click', (event) => {
             const target = event.target;
             if (target.classList.contains('deleteBtn')) {
-                const listItem = target.parentElement;
+                const listItem = target.parentElement.parentElement;
                 taskList.removeChild(listItem);
+                saveTasks();
             } else if (target.classList.contains('editBtn')) {
-                const listItem = target.parentElement;
+                const listItem = target.parentElement.parentElement;
                 const span = listItem.querySelector('span');
                 span.contentEditable = true;
-                span.focus();
+                span.focus( );
             }
         });
 
         taskList.addEventListener('blur', (event) => {
             const target = event.target;
-            if (target.tagName === 'SPAN') {
+            if (target.tagName === ' SPAN ') {
                 target.removeAttribute('contenteditable');
+                saveTasks();
             }
         });
+
+        // Wczytanie zapisanych zadań po załadowaniu strony
+        document.addEventListener('DOMContentLoaded', loadTasks);
     </script>
 </body>
 
