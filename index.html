@@ -16,7 +16,7 @@
 
         <form>
             <label for="task-input"> Enter a new Task:</label>
-            <input type="text" id="task-input" name="task-input" />
+            <input type="text" id="task-input" class="task-input" name="task-input" />
             <button class="taskBtn">Add Task</button>
         </form>
 
@@ -49,7 +49,7 @@
             const listItem = document.createElement('li');
             listItem.innerHTML = `
                 <div class="button-container">
-                    <span>${task}</span>
+                    <span class='task-span'>${task}</span>
                 </div >
                     <div class='boxBtn'>
                         <button class="editBtn">Edit</button>
@@ -59,10 +59,12 @@
             saveTasks();
 
             listItem.addEventListener('click', function () {
-                classList.toogle('done')
+                const buttonContainer = this.querySelector('.button-container');
+                const computedStyle = window.getComputedStyle(buttonContainer);
+                const backgroundColor = computedStyle.backgroundColor;
+                buttonContainer.style.backgroundColor = backgroundColor === 'rgb(69, 160, 73)' ? 'red' : 'rgb(69, 160, 73)';
             })
         }
-
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
@@ -72,7 +74,7 @@
                 addTask(task);
                 input.value = '';
             } else {
-                alert('Please enter a task!');
+                alert(' Please enter a task! ');
             }
         });
 

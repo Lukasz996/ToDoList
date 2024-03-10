@@ -29,10 +29,6 @@ body {
 	background-color: #45a049;
 }
 
-.boxBtn {
-	display: flex;
-	padding: 4px;
-}
 
 h1 {
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -49,6 +45,11 @@ label {
 	display: block;
 	margin-bottom: 5px;
 	color: #333;
+	margin-left: 15px;
+}
+
+.task-input {
+	margin-left: 15px;
 }
 
 input[type='text'] {
@@ -58,11 +59,17 @@ input[type='text'] {
 	border: 1px solid #ccc;
 }
 
+.boxBtn {
+	display: flex;
+	padding: 4px;
+}
+
 button.taskBtn {
 	background-color: #4caf50;
 	color: #fff;
 	border: 3px solid #45a049;
 	padding: 8px 16px;
+	margin: 5px;
 	border-radius: 4px;
 	cursor: pointer;
 	transition: background-color 0.3s;
@@ -86,6 +93,11 @@ li {
 	display: flex;
 	text-align: center;
 	justify-content: space-around;
+}
+
+.task-span {
+	display: flex;
+	align-items: center;
 }
 
 span[contenteditable='true'] {
